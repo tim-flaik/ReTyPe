@@ -97,6 +97,16 @@ Expanding on 3. above: Configuration `.ini` files are read from `%A_AppData%\ReT
 
 As well as the config settings for "latching" on to RTP, ReTyPe can be configured whether or not to have a toolbar, which buttons to show, etc. Furthermore, many individual refills can also be configured with here with a corresponding file. Details are within each individual class file.
 
+##### Updates Tim Esnouf
+
+RTP.ini file need specific info most easily gleaned from Windows Spy
+
+For Example: ahk_class WindowsForms10.Window.8.app.0.13965fa_r7_ad1
+Type=Window.8
+Suffix=app.0.13965fa
+Window=7 -> comes form the "_r7" part of the string
+Element=1 -> coems form the "_ad1"
+
 #### Run from source
 
 1. Run `retype.ahk`

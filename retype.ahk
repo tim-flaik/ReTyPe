@@ -67,6 +67,7 @@ Menu, tray, add, &Reload, fnReload
 Menu, tray, add, &About, fnAbout
 Menu, tray, add  ; Creates a separator line.
 Menu, tray, add, E&xit, fnExit
+Menu, tray, add, &test, fnTest
 
 
 ; Build the retype!
@@ -115,3 +116,7 @@ return
 fnExit:
 	ExitApp
 return
+
+fnTest:
+	MsgBox % DllCall("GetWindowLong", "uint", hwnd, "int", GWL_ID:=-12)
+Return
