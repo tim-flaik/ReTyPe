@@ -34,7 +34,7 @@
 #Include %A_ScriptDir%\lib
 #Include rtp.ahk
 #Include toolbarretype.ahk
-#Include %A_ScriptDir%\lib\db-connections.ahk
+; #Include %A_ScriptDir%\lib\db-connections.ahk
 #Include %A_ScriptDir%\lib\msgbox.ahk
 #Include %A_ScriptDir%\lib\inputbox.ahk
 
