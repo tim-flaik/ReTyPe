@@ -55,13 +55,21 @@ class FluidDatePickerPortalBiggerer extends Fluid {
 		; Pricing Season window is active
 		IfWinActive, ahk_group %strGroup%
 		{
+			MsgBox, , find Windows, %strRTP%, 
 			WinGetPos, intX, intY, intW, intH, A
 			if ( intW = 640 || intW = 688 )
 			{
 				
 				; Pricing season is annoying Step 1 lets make it taller 
-				WinMove, A, , , % intH-350 ,645 , 900 
-				; WinMove, A, , % intX-100, , 1400
+				WinMove, A, , , % intH-350 ,700 , 900 
+				; We want to make this window wider 350
+				
+				; Identify Dates list control
+				strListResult := objRetype.objRTP.formatClassNN( "SysListView32", this.getConf( "ListResult", 11 ) )
+				;; TE notes -> look to autocharge process to see how to get control
+					; of this list then we can manipluate the width 
+					; have alraeady added the necessary .ini files
+
 			}
 		}
 
