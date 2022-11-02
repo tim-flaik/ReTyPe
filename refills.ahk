@@ -15,6 +15,7 @@
 #Include refills\FluidEmailPreviewEnterOverride.ahk
 #Include refills\FluidHotlistAdd.ahk
 #Include refills\FluidInventoryTransposeExcel.ahk
+#Include refills\FluidInventoryWindowWiden.ahk
 #Include refills\FluidListItemDelete.ahk
 #Include refills\FluidLoginSwipe.ahk
 #Include refills\FluidLoginSwipeButtonDisable.ahk
