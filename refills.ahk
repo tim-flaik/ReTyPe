@@ -12,6 +12,7 @@
 #Include refills\FluidComponentMediaOutputCopy.ahk
 #Include refills\FluidComponentVoucherOutputCopy.ahk
 #Include refills\FluidCustomerImageLookup.ahk
+#Include refills\FluidDatePickerPortalBiggerer.ahk
 #Include refills\FluidEmailPreviewEnterOverride.ahk
 #Include refills\FluidHotlistAdd.ahk
 #Include refills\FluidInventoryTransposeExcel.ahk

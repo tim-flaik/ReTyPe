@@ -27,7 +27,7 @@
 
 
 ; Trigger my damn self (in a horrible way due to AHK limitations)
-objRetype.refill( new FluidPricingSeasonPickerWiden() )
+objRetype.refill( new FluidDatePickerPortalBiggerer() )
 
 
 /**
@@ -39,7 +39,7 @@ objRetype.refill( new FluidPricingSeasonPickerWiden() )
  * @author		Tim Esnouf <tim.esnouf[åt]flaik[dõt]com>
  * @copyright	2022 Tim Esnouf
  */
-class FluidPricingSeasonPickerWiden extends Fluid {
+class FluidDatePickerPortalBiggerer extends Fluid {
 
 	intTimer := 100
 
