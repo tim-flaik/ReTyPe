@@ -55,7 +55,7 @@ class FluidDatePickerPortalBiggerer extends Fluid {
 		; Pricing Season window is active
 		IfWinActive, ahk_group %strGroup%
 		{
-			MsgBox, , find Windows, %strRTP%, 
+			 
 			WinGetPos, intX, intY, intW, intH, A
 			if ( intW = 640 || intW = 688 )
 			{
@@ -64,11 +64,17 @@ class FluidDatePickerPortalBiggerer extends Fluid {
 				WinMove, A, , , % intH-350 ,700 , 900 
 				; We want to make this window wider 350
 				
-				; Identify Dates list control
-				strListResult := objRetype.objRTP.formatClassNN( "SysListView32", this.getConf( "ListResult", 11 ) )
-				;; TE notes -> look to autocharge process to see how to get control
-					; of this list then we can manipluate the width 
-					; have alraeady added the necessary .ini files
+				; Identify Dates list control list 11
+				strListResult :=  objRetype.objRTP.formatClassNN( "SysListView32", this.getConf( "ListResult", 11 ) )
+				;; Need to also move button 11 and 12
+				
+				ControlGetPos, intX, intY, intW, intH, %strListResult%, 
+				; MsgBox, , Position, %intX% %strListResult%, 
+				;; TE NOTE Can move the portal but unableot adjust height or width.  Even ints break the
+				;; AHK flow  something is locking this in... leaving commented out for now
+				; ControlMove, %strListResult% , % intX - 80  , ,  ,  , A
+
+
 
 			}
 		}
