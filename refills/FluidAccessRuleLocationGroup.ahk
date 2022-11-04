@@ -30,12 +30,15 @@ objRetype.refill( new FluidAccessRuleLocationGroup() )
 
 
 /**
- * Refill to add text-search box to components for access codes
+ * Refill to add text-search box to components when cloning Access Rule location Groups. 
+ * Box will currently show but not work when just viewing.  Likely only options is to Check the
+ * colour of the box when it's in the update mode and NOT generate the search bar color is 0xCCCCCC
+ * other potential option IF Window Title contains UPDATE don't run this 
  *
  * @category	Automation
  * @package		ReTyPe
- * @author		Dominic Wrapson <hwulex[åt]gmail[dõt]com>
- * @copyright	2014 Dominic Wrapson
+ * @author		Tim Esnouf 
+ * @copyright	2022 Tim Esnouf
  */
 class FluidAccessRuleLocationGroup extends Fluid {
 
@@ -50,7 +53,7 @@ class FluidAccessRuleLocationGroup extends Fluid {
 
 		strGroup	:= this.id
 		strRTP		:= % objRetype.objRTP.classNN()
-		GroupAdd, %strGroup%, ahk_class %strRTP%, Access Location Group
+		GroupAdd, %strGroup%, ahk_class %strRTP%, Add Access Location Group
 	}
 
 	/**
