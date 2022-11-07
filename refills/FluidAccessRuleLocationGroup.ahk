@@ -53,7 +53,7 @@ class FluidAccessRuleLocationGroup extends Fluid {
 
 		strGroup	:= this.id
 		strRTP		:= % objRetype.objRTP.classNN()
-		GroupAdd, %strGroup%, ahk_class %strRTP%, Add Access Location Group
+		GroupAdd, %strGroup%, ahk_class %strRTP%, Access Location Group
 	}
 
 	/**
@@ -71,50 +71,56 @@ class FluidAccessRuleLocationGroup extends Fluid {
 		IfWinActive, ahk_group %strGroup%
 		{
 			; WinActive check isn't good enough in this case, so need to make a visual search too
-			 
-			ImageSearch intActiveX, intActiveY, 175, 30, 265, 65, *50 %A_ScriptDir%\img\search_fluidaccessrulelocationgroup_general.png
-			If ( !ErrorLevel ) {
-				strControl := objRetype.objRTP.formatClassNN( "COMBOBOX", this.getConf( "ComboBox", 11 ) )
-				WinGetPos, intWinX, intWinY,,,
-				ControlGetPos, intCtlX, intCtlY,,, %strControl%,
-				intGuiX := intWinX + intCtlX -43
-				intGuiY := intWinY + intCtlY
-; @todo check x/y values before proceeding in case config or combo not found and fails
-				IfWinExist, AccessLocationCode ahk_class AutoHotkeyGUI
-				{
-					Gui, AccessLocationCode:Show, NA x%intGuiX% y%intGuiY%, AccessLocationCode
+			strControlActive := objRetype.objRTP.formatClassNN( "COMBOBOX", FluidAccessRuleLocationGroup.getConf( "ComboBox", 11 ) )
+			ControlGet, strListEnabled, Enabled, , %strControlActive% , , , , 
+			
+			; we only want to proceed if the COMBOBOX is enabled to modify.
+			If ( strListEnabled ) {
+
+				ImageSearch intActiveX, intActiveY, 175, 30, 265, 65, *50 %A_ScriptDir%\img\search_fluidaccessrulelocationgroup_general.png
+				If ( !ErrorLevel ) {
+					strControl := objRetype.objRTP.formatClassNN( "COMBOBOX", this.getConf( "ComboBox", 11 ) )
+					WinGetPos, intWinX, intWinY,,,
+					ControlGetPos, intCtlX, intCtlY,,, %strControl%,
+					intGuiX := intWinX + intCtlX -43
+					intGuiY := intWinY + intCtlY
+	; @todo check x/y values before proceeding in case config or combo not found and fails
+					IfWinExist, AccessGroupLocationCode ahk_class AutoHotkeyGUI
+					{
+						Gui, AccessGroupLocationCode:Show, NA x%intGuiX% y%intGuiY%, AccessGroupLocationCode
+					} else {
+						Gui, AccessGroupLocationCode:Add, Edit, x0 y0 w40 gfnSearchAccessRuleLocationTextbox Limit5 Uppercase vFind
+						Gui, AccessGroupLocationCode:Margin, 0, 0
+						Gui, AccessGroupLocationCode:-SysMenu +ToolWindow -Caption -Border +AlwaysOnTop
+						Gui, AccessGroupLocationCode:Show, NA x%intGuiX% y%intGuiY%, AccessGroupLocationCode
+						WinGet, idWinRetype, ID, AccessGroupLocationCode ahk_class AutoHotkeyGUI
+					}
+					WinActivate, ahk_group %strGroup%
 				} else {
-					Gui, AccessLocationCode:Add, Edit, x0 y0 w40 gfnSearchAccessRuleLocationTextbox Limit5 Uppercase vFind
-					Gui, AccessLocationCode:Margin, 0, 0
-					Gui, AccessLocationCode:-SysMenu +ToolWindow -Caption -Border +AlwaysOnTop
-					Gui, AccessLocationCode:Show, NA x%intGuiX% y%intGuiY%, AccessLocationCode
-					WinGet, idWinRetype, ID, AccessLocationCode ahk_class AutoHotkeyGUI
+					Gui, AccessGroupLocationCode:Destroy
 				}
-				WinActivate, ahk_group %strGroup%
-			} else {
-				Gui, AccessLocationCode:Destroy
 			}
 		}
 
 		IfWinNotExist, ahk_group %strGroup%
 		{
-			Gui, AccessLocationCode:Hide
+			Gui, AccessGroupLocationCode:Hide
 		}
 
 		; Group the RTP and Retype windows together as it's the only way !WinActive will work
-		GroupAdd, grpWinAccessLocationCode, ahk_id %idWinRTP%
-		GroupAdd, grpWinAccessLocationCode, ahk_id %idWinRetype%
-		If !WinActive("ahk_group grpWinAccessLocationCode")
+		GroupAdd, grpWinAccessGroupLocationCode, ahk_id %idWinRTP%
+		GroupAdd, grpWinAccessGroupLocationCode, ahk_id %idWinRetype%
+		If !WinActive("ahk_group grpWinAccessGroupLocationCode")
 		{
 			; This code stops toolbar showing in other apps
-			Gui, AccessLocationCode:Destroy
+			Gui, AccessGroupLocationCode:Destroy
 		}
 
 		; GTFO before the label here below
 		return
 
 		/**
-		 * Adds a border-less UI with a single button next to the disabled AccessLocationCode combobox
+		 * Adds a border-less UI with a single button next to the disabled AccessGroupLocationCode combobox
 		 * Appears to "add" a button to the UI when in fact it floats above it but never steals focus
 		 * Now that's MAGIC!
 		 */
@@ -129,7 +135,7 @@ class FluidAccessRuleLocationGroup extends Fluid {
 			Control, ChooseString, %strFind% , %strControl%, ahk_id %idWin%
 			;WinActivate, Update ahk_id %idWin%
 
-			;Gui, AccessLocationCode:Hide
+			;Gui, AccessGroupLocationCode:Hide
 		return
 	}
 
