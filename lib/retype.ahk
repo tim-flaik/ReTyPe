@@ -37,7 +37,7 @@
 ; #Include %A_ScriptDir%\lib\db-connections.ahk
 #Include %A_ScriptDir%\lib\msgbox.ahk
 #Include %A_ScriptDir%\lib\inputbox.ahk
-
+#Include %A_ScriptDir%\lib\AHKPanic.ahk
 
 ; Global variables so they can be used within labels
 ;arrTimers := {}
@@ -55,9 +55,9 @@ intTimerCount := 0
  * @copyright	2013 Dominic Wrapson
  */
 class Retype {
-; @todo abstract main functionality, extend to RTP specific version
+	; @todo abstract main functionality, extend to RTP specific version
 
-	;static objRetype	= 
+	;static objRetype	=
 	; Config
 	strDirConf		:= A_AppData "\ReTyPe\"
 	strFileConf		:= this.strDirConf "Retype.ini"
@@ -89,11 +89,11 @@ class Retype {
 		IniRead, strButtons, % this.strFileConf, Toolbar, Buttons, GACOV
 		this.strButtons := strButtons
 
-; @todo Iterate over refills.ahk instantiate and register each automatically
-; LoopFile, refills.ahk {
-;	strRefill := SubStr( A_LoopValue, /, . )
-; 	this.refill( new %strRefill% )
-; }
+		; @todo Iterate over refills.ahk instantiate and register each automatically
+		; LoopFile, refills.ahk {
+		;	strRefill := SubStr( A_LoopValue, /, . )
+		; 	this.refill( new %strRefill% )
+		; }
 
 		; Change config location for progress bar
 		Progress.strFileConf	:= A_AppData "\ReTyPe\app.ini"
@@ -101,7 +101,6 @@ class Retype {
 		; Instantiate RTP handling object
 		this.objRTP := new RTP()
 	}
-
 
 	__Delete() {
 		; Some destruction stuff here
@@ -208,25 +207,24 @@ class Retype {
 				this.arrHotkeys[objFluid.id] := objFluid
 			} else {
 				throw new Exception( "Invalid fluid type" )
-; @todo Extend Exception to different sub-classes
+				; @todo Extend Exception to different sub-classes
 			}
 
 			; method that does menus, hotkey, any setup, etc
 			objFluid.fill()
 
-; @todo Make buttons on the toolbar flash (bold) and menu items highlighted (bold)
-; when they open a relevant window/area to prompt users to use available macros
-; https://www.autohotkey.com/docs/commands/GuiControl.htm
-;   See section Font
-; Also see button_color.ahk in _test directory
-;   Using example from this link http://www.autohotkey.com/board/topic/102379-add-background-color-to-a-gui-button/?p=635432
+			; @todo Make buttons on the toolbar flash (bold) and menu items highlighted (bold)
+			; when they open a relevant window/area to prompt users to use available macros
+			; https://www.autohotkey.com/docs/commands/GuiControl.htm
+			;   See section Font
+			; Also see button_color.ahk in _test directory
+			;   Using example from this link http://www.autohotkey.com/board/topic/102379-add-background-color-to-a-gui-button/?p=635432
 
 		} catch e {
 			; http://www.autohotkey.com/docs/commands/_ErrorStdOut.htm
 			Debug.log( e )
 		}
 	}
-
 
 }
 
