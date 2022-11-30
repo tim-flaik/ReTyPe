@@ -99,10 +99,6 @@ if ( !A_IsCompiled ) {
 ; Make stuff happen!
 objRetype.go()
 
-; before we have a return add in a OH shit option
-;; Emergency STOP to all scripts including this one
-^!x::AHKPanic(1,0,0,1) ;; Kill, Pause, Suspend, SelfToo
-
 Return
 
 fnAbout:

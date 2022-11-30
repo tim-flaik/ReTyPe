@@ -8,12 +8,12 @@
  * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -24,10 +24,8 @@
  * @license		GNU AFFERO GENERAL PUBLIC LICENSE Version 3, 19 November 2007 http://www.gnu.org/licenses/
  */
 
-
 ; Trigger my damn self (in a horrible way due to AHK limitations)
 objRetype.refill( new FluidComponentMediaOutputCopy() )
-
 
 /**
  * Refill to automatically duplicate text from first output entry to following X entries
@@ -69,7 +67,7 @@ class FluidComponentMediaOutputCopy extends Fluid {
 
 		; Activate RTP (after toolbar has been clicked)
 		objRetype.objRTP.Activate()
-; @todo Check needs to be removed once I've managed to wall-in shortcuts in to the RTP only window
+		; @todo Check needs to be removed once I've managed to wall-in shortcuts in to the RTP only window
 		; Run if it's ready!
 		strGroup := this.__Class
 		IfWinActive, ahk_group %strGroup%
@@ -91,7 +89,7 @@ class FluidComponentMediaOutputCopy extends Fluid {
 				intIterate := InputBox.Show( "To how many more Sales Channels will we copy the output?", intIterate )
 
 				; Clear the Clipboard
-				clipboard = 
+				clipboard =
 
 				; Botch around the fact that I cannot seem to apply focus to a SysListView32 control
 				ControlFocus, Add, A
@@ -104,18 +102,21 @@ class FluidComponentMediaOutputCopy extends Fluid {
 					MsgBox.Stop( "Timed out waiting for Output window. Exiting" )
 
 				; Move to label 1
+
 				Send {Tab 5}
 				; Copy box and pre-pend to next then copy again
 				Loop 8
 				{
+					Sleep 25
 					; Copy contents of text input
 					Send ^a^c{Tab}{Home}
 					; Prepend to next field, separate by field delimeter
 					SendInput %clipboard%
-					Sleep 5
+					Sleep 10
 					Send |
 				}
 				Send ^a^c{Tab 2}{Space}
+				; MsgBox, , Cliboard Contents, %clipboard% ,
 				; Update next X sales channels
 				Loop %intIterate%
 				{
@@ -133,10 +134,13 @@ class FluidComponentMediaOutputCopy extends Fluid {
 					{
 						SendInput ^a{BackSpace}%A_LoopField%{Tab}
 					}
+					; MsgBox, , Current Position, Im now Here %clipboard%,
+					Sleep 50
 					; Final tab on loop puts us on Update button, hit space to confirm
-					Send {Space}
+					; Send {Space}
+					; slightly more dagerous but more effective and reliable
+					Send {Return}
 				}
-
 
 			}
 		}

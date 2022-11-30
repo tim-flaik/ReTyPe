@@ -21,6 +21,7 @@
 #Include refills\FluidListItemDelete.ahk
 #Include refills\FluidLoginSwipe.ahk
 #Include refills\FluidLoginSwipeButtonDisable.ahk
+#Include refills\FluidPanicEscapeGetOuttaHere.ahk
 #Include refills\FluidProductAccountingCopy.ahk
 #Include refills\FluidProductAccountingCopyDown.ahk
 #Include refills\FluidProductCategoryOrdering.ahk
