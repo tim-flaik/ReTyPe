@@ -39,7 +39,6 @@
  * @copyright  2014 Dominic Wrapson
  * @license    Creative Commons Attribution-ShareAlike 4.0 International License http://creativecommons.org/licenses/by-sa/4.0/deed.en_US
  */
- 
 
 ; Avoids checking empty variables to see if they are environment variables (recommended for all new scripts).
 #NoEnv
@@ -58,17 +57,15 @@ SetTitleMatchMode, 1
 ; This include must be last as it changes the include path
 #Include %A_ScriptDir%\refills\_fluid.ahk
 
-
 ; SysTray and menu config
 Menu, tray, NoStandard
 Menu, tray, icon, %A_ScriptDir%\retype.ico, , 1
 Menu, Tray, Tip, ReTyPe
 Menu, tray, add, &Reload, fnReload
 Menu, tray, add, &About, fnAbout
-Menu, tray, add  ; Creates a separator line.
+Menu, tray, add ; Creates a separator line.
 Menu, tray, add, E&xit, fnExit
 Menu, tray, add, &test, fnTest
-
 
 ; Build the retype!
 objRetype := new Retype()
@@ -99,7 +96,6 @@ if ( !A_IsCompiled ) {
 ; have been populated with the correct files on execution one.  Comprendes?
 #Include %A_ScriptDir%\refills.ahk
 
-
 ; Make stuff happen!
 objRetype.go()
 
@@ -114,7 +110,7 @@ fnReload:
 return
 
 fnExit:
-	ExitApp
+ExitApp
 return
 
 fnTest:
