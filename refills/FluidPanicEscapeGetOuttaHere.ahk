@@ -8,12 +8,12 @@
  * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -25,7 +25,7 @@
  */
 
 ; Trigger my damn self (in a horrible way due to AHK limitations)
-objRetype.refill( new FluidCustomerImageLookup() )
+objRetype.refill( new FluidPanicEscapeGetOuttaHere() )
 
 /**
  * Refill to load a customer's image in a browser, searching by IP code
@@ -37,10 +37,10 @@ objRetype.refill( new FluidCustomerImageLookup() )
  */
 class FluidPanicEscapeGetOuttaHere extends Fluid {
 
-	strHotkey		:= "^!x"
-	; strMenuPath		:= "/CusMan"
-	; strMenuText		:= "Customer Image"
-	; intMenuIcon		:= 265 ;272
+	strHotkey		:= "^!q"
+	strMenuPath		:= "/General"
+	strMenuText		:= "Help Me"
+	intMenuIcon		:= 265 ;272
 
 	/**
 	 * Setup controls, window group, etc
@@ -53,7 +53,6 @@ class FluidPanicEscapeGetOuttaHere extends Fluid {
 	 * Where the magic happens
 	 */
 	pour() {
-		MsgBox, , fark, fuckitty, fuck fuckitty,
 
 		DetectHiddenWindows, On
 		WinGet, IDList ,List, ahk_class AutoHotkey
@@ -65,11 +64,8 @@ class FluidPanicEscapeGetOuttaHere extends Fluid {
 				WinClose, ahk_id %ID% ;kill
 
 		}
-		If SelfToo
-		{
-			If Kill
-				ExitApp
-		}
+		ExitApp
+
 	}
 
 }
