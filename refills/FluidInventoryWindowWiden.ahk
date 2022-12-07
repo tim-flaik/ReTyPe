@@ -25,10 +25,8 @@
  * @license 	GNU AFFERO GENERAL PUBLIC LICENSE http://www.gnu.org/licenses/agpl-3.0.txt
  */
 
-
 ; Trigger my damn self (in a horrible way due to AHK limitations)
 objRetype.refill( new FluidInventoryWindowWiden() )
-
 
 /**
  * Refill to widen the Inventory Pool viewer window
@@ -60,11 +58,10 @@ class FluidInventoryWindowWiden extends Fluid {
 				; Give us the whole width of the Inventory table view
 				; Currently set up so it only widens once you click on one of the list views with
 				; a wide table (Inventory or Accounting)
-				WinMove, A, , % intX-100, , 1400
+				WinMove, A, , % intX-500, , 1300, 800
 			}
 		}
 
 	}
-
 
 }

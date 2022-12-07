@@ -25,10 +25,8 @@
  * @license 	GNU AFFERO GENERAL PUBLIC LICENSE http://www.gnu.org/licenses/agpl-3.0.txt
  */
 
-
 ; Trigger my damn self (in a horrible way due to AHK limitations)
 objRetype.refill( new FluidDatePickerPortalBiggerer() )
-
 
 /**
  * Refill to moves the Deferral Calendar and Pricing Seaosn windows up and makes
@@ -49,37 +47,34 @@ class FluidDatePickerPortalBiggerer extends Fluid {
 		; Create window group for places we want this hotkey active
 		strGroup	:= this.__Class
 		strRTP		:= % objRetype.objRTP.classNN()
-		GroupAdd, %strGroup%, Add ahk_class %strRTP%, Dates
-		GroupAdd, %strGroup%, Update ahk_class %strRTP%, Dates
+		GroupAdd, %strGroup%, Add ahk_class %strRTP%, Pricing Season Dates
+		GroupAdd, %strGroup%, Update ahk_class %strRTP%, Pricing Season Dates
 
 		; Pricing Season window is active
 		IfWinActive, ahk_group %strGroup%
 		{
-			 
+
 			WinGetPos, intX, intY, intW, intH, A
 			if ( intW = 640 || intW = 688 )
 			{
-				
-				; Pricing season is annoying Step 1 lets make it taller 
-				WinMove, A, , , % intH-350 ,700 , 900 
+
+				; Pricing season is annoying Step 1 lets make it taller
+				WinMove, A, , , % intH-350 ,700 , 900
 				; We want to make this window wider 350
-				
+
 				; Identify Dates list control list 11
-				strListResult :=  objRetype.objRTP.formatClassNN( "SysListView32", this.getConf( "ListResult", 11 ) )
+				strListResult := objRetype.objRTP.formatClassNN( "SysListView32", this.getConf( "ListResult", 11 ) )
 				;; Need to also move button 11 and 12
-				
-				ControlGetPos, intX, intY, intW, intH, %strListResult%, 
-				; MsgBox, , Position, %intX% %strListResult%, 
+
+				ControlGetPos, intX, intY, intW, intH, %strListResult%,
+				; MsgBox, , Position, %intX% %strListResult%,
 				;; TE NOTE Can move the portal but unableot adjust height or width.  Even ints break the
 				;; AHK flow  something is locking this in... leaving commented out for now
 				; ControlMove, %strListResult% , % intX - 80  , ,  ,  , A
-
-
 
 			}
 		}
 
 	}
-
 
 }
