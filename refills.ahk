@@ -16,6 +16,7 @@
 #Include refills\FluidDatePickerPortalBiggerer.ahk
 #Include refills\FluidEmailPreviewEnterOverride.ahk
 #Include refills\FluidHotlistAdd.ahk
+#Include refills\FluidInventoryListItemSetAutoAssign.ahk
 #Include refills\FluidInventoryTransposeExcel.ahk
 #Include refills\FluidInventoryWindowWiden.ahk
 #Include refills\FluidListItemDelete.ahk

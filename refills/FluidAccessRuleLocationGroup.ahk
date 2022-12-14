@@ -8,12 +8,12 @@
  * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -24,20 +24,18 @@
  * @license		GNU AFFERO GENERAL PUBLIC LICENSE Version 3, 19 November 2007 http://www.gnu.org/licenses/
  */
 
-
 ; Trigger my damn self (in a horrible way due to AHK limitations)
 objRetype.refill( new FluidAccessRuleLocationGroup() )
 
-
 /**
- * Refill to add text-search box to components when cloning Access Rule location Groups. 
+ * Refill to add text-search box to components when cloning Access Rule location Groups.
  * Box will currently show but not work when just viewing.  Likely only options is to Check the
  * colour of the box when it's in the update mode and NOT generate the search bar color is 0xCCCCCC
- * other potential option IF Window Title contains UPDATE don't run this 
+ * other potential option IF Window Title contains UPDATE don't run this
  *
  * @category	Automation
  * @package		ReTyPe
- * @author		Tim Esnouf 
+ * @author		Tim Esnouf
  * @copyright	2022 Tim Esnouf
  */
 class FluidAccessRuleLocationGroup extends Fluid {
@@ -70,10 +68,11 @@ class FluidAccessRuleLocationGroup extends Fluid {
 		strGroup := this.__Class
 		IfWinActive, ahk_group %strGroup%
 		{
+
 			; WinActive check isn't good enough in this case, so need to make a visual search too
 			strControlActive := objRetype.objRTP.formatClassNN( "COMBOBOX", FluidAccessRuleLocationGroup.getConf( "ComboBox", 11 ) )
-			ControlGet, strListEnabled, Enabled, , %strControlActive% , , , , 
-			
+			ControlGet, strListEnabled, Enabled, , %strControlActive% , , , ,
+
 			; we only want to proceed if the COMBOBOX is enabled to modify.
 			If ( strListEnabled ) {
 
@@ -84,7 +83,7 @@ class FluidAccessRuleLocationGroup extends Fluid {
 					ControlGetPos, intCtlX, intCtlY,,, %strControl%,
 					intGuiX := intWinX + intCtlX -43
 					intGuiY := intWinY + intCtlY
-	; @todo check x/y values before proceeding in case config or combo not found and fails
+					; @todo check x/y values before proceeding in case config or combo not found and fails
 					IfWinExist, AccessGroupLocationCode ahk_class AutoHotkeyGUI
 					{
 						Gui, AccessGroupLocationCode:Show, NA x%intGuiX% y%intGuiY%, AccessGroupLocationCode
@@ -128,14 +127,14 @@ class FluidAccessRuleLocationGroup extends Fluid {
 			; Get RTP window for later reference
 			strRTP		:= % objRetype.objRTP.classNN()
 			WinGet, idWin, ID, ahk_class %strRTP%, Access Location Group
-			; MsgBox, , Wino,  %idWin%, 
+			; MsgBox, , Wino,  %idWin%,
 
 			GuiControlGet, strFind,, Find
 			strControl := objRetype.objRTP.formatClassNN( "COMBOBOX", FluidAccessRuleLocationGroup.getConf( "ComboBox", 11 ) )
 			Control, ChooseString, %strFind% , %strControl%, ahk_id %idWin%
-			;WinActivate, Update ahk_id %idWin%
+		;WinActivate, Update ahk_id %idWin%
 
-			;Gui, AccessGroupLocationCode:Hide
+		;Gui, AccessGroupLocationCode:Hide
 		return
 	}
 

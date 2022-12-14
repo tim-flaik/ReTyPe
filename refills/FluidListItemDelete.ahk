@@ -8,12 +8,12 @@
  * it under the terms of the GNU Affero General Public License as published
  * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
@@ -24,10 +24,8 @@
  * @license		GNU AFFERO GENERAL PUBLIC LICENSE Version 3, 19 November 2007 http://www.gnu.org/licenses/
  */
 
-
 ; Trigger my damn self (in a horrible way due to AHK limitations)
 objRetype.refill( new FluidListItemDelete() )
-
 
 /**
  * Refill to automatically delete X entries in a listview
@@ -39,12 +37,10 @@ objRetype.refill( new FluidListItemDelete() )
  */
 class FluidListItemDelete extends Fluid {
 
-
 	strHotkey		:= "^!x"
 	strMenuPath		:= "/Admin/"
 	strMenuText		:= "Delete List Item"
 	intMenuIcon		:= 132
-
 
 	/**
 	 * Setup controls, window group, etc
@@ -59,10 +55,9 @@ class FluidListItemDelete extends Fluid {
 		GroupAdd, %strGroup%, Update ahk_class %strRTP%
 	}
 
-
 	/**
 	 * Where the magic happens
-	 * 
+	 *
 	 * WARNING: Certain listview types that accept keystrokes (like ones with display order built in) when they are re-focused
 	 * 		after a delete default to the first item in that list. I can't tell the position from which a delete was started
 	 * 		so there's a good chance if you delete from anywhere other than the top item in one of these lists then you
@@ -75,7 +70,7 @@ class FluidListItemDelete extends Fluid {
 
 		; Activate RTP (after toolbar has been clicked)
 		objRetype.objRTP.Activate()
-; @todo Check needs to be removed once I've managed to wall-in shortcuts in to the RTP only window
+		; @todo Check needs to be removed once I've managed to wall-in shortcuts in to the RTP only window
 		; Run if it's ready!
 		strGroup := this.__Class
 		IfWinActive, ahk_group %strGroup%
@@ -156,36 +151,35 @@ class FluidListItemDelete extends Fluid {
 					; Spend some key-strokes to ensure an item is actually selected in the list
 					Send ^{Space 2}{Space}
 
-
 					ControlFocus, %strControlRemove%, ahk_id %idWin%
 					Send {Space}
 					WinWaitActive, ,Are you sure you want to delete the, 2
 					if ( 0 != ErrorLevel ) {
 						MsgBox.Stop( "Timed out waiting for the delete prompt, something else is probably wrong. Exiting" )
 					}
-; Was causing double-iterations so deleting too many entries.
-/*
-					; Wait around for the delete prompt
-					intWait := 0
-					while intWait < 4 {
-						;ControlClick, Remove, ahk_id %idWin%,,,1
-						ControlFocus, %strControlRemove%, ahk_id %idWin%
-						Send {Space}
+					; Was causing double-iterations so deleting too many entries.
+					/*
+										; Wait around for the delete prompt
+										intWait := 0
+										while intWait < 4 {
+											;ControlClick, Remove, ahk_id %idWin%,,,1
+											ControlFocus, %strControlRemove%, ahk_id %idWin%
+											Send {Space}
 
-						;WinWaitNotActive, ahk_id %idWin%,, 3
-						WinWaitActive, ,Are you sure you want to delete the, 1
-						if ( 0 = ErrorLevel ) {
-							break
-						}
+											;WinWaitNotActive, ahk_id %idWin%,, 3
+											WinWaitActive, ,Are you sure you want to delete the, 1
+											if ( 0 = ErrorLevel ) {
+												break
+											}
 
-						if ( intWait = 3 ) {
-							MsgBox.Error( "Timed out waiting for the delete prompt, something else is probably wrong. Exiting" )
-							return
-						}
+											if ( intWait = 3 ) {
+												MsgBox.Error( "Timed out waiting for the delete prompt, something else is probably wrong. Exiting" )
+												return
+											}
 
-						intWait++
-					}
-*/
+											intWait++
+										}
+					*/
 					; Hit that button, delete that stuff!
 					;ControlClick, Yes
 					Send {Space}
@@ -198,6 +192,5 @@ class FluidListItemDelete extends Fluid {
 			}
 		}
 	}
-
 
 }
