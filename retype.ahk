@@ -100,6 +100,8 @@ if ( !A_IsCompiled ) {
 ; Make stuff happen!
 objRetype.go()
 
+!t::	Run, test.ahk
+
 Return
 
 fnAbout:

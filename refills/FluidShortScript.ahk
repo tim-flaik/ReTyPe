@@ -1,5 +1,5 @@
 /**
- * File containing Refill class to find a customer image
+ * File containing Refill class to automate pass admin commenting
  * Class will add itself to the parent retype instance
  *
  * AutoHotKey v1.1.13.01+
@@ -25,47 +25,54 @@
  */
 
 ; Trigger my damn self (in a horrible way due to AHK limitations)
-objRetype.refill( new FluidPanicEscapeGetOuttaHere() )
+objRetype.refill( new FluidShortScript() )
 
 /**
- * Implement a oh dear we need to shut AHK down script.  Something has gone awry.
+ * Refill to automate pass admin commenting
  *
  * @category	Automation
  * @package		ReTyPe
- * @author		Tim Esnouf
- * @copyright	2022 Tim Esnouf
+ * @author		Dominic Wrapson <hwulex[åt]gmail[dõt]com>
+ * @copyright	2014 Dominic Wrapson
  */
-class FluidPanicEscapeGetOuttaHere extends Fluid {
+class FluidShortScript extends Fluid {
+	; @todo Make generic commenting class (with prompt), and extend to pass admin / config file editable sub-class
 
-	strHotkey		:= "^!q"
-	strMenuPath		:= "/General"
-	strMenuText		:= "Help Me"
-	intMenuIcon		:= 265 ;272
+	strHotkey		:= "!+t"
+	strMenuPath		:= "/Admin"
+	strMenuText		:= "Short Scripts?"
+	intMenuIcon		:= 67
 
 	/**
 	 * Setup controls, window group, etc
 	 */
 	__New() {
+		global objRetype
 		base.__New()
+
+		strRTP		:= % objRetype.objRTP.classNN()
+		strGroup	:= this.id
+
+		GroupAdd, %strGroup%, ahk_class %strRTP%
 	}
 
 	/**
-	 * Where the magic happens
+	 * Make the magic happen
 	 */
 	pour() {
+		global objRetype
 
-		DetectHiddenWindows, On
-		WinGet, IDList ,List, ahk_class AutoHotkey
-		Loop %IDList%
+		; Activate RTP (after toolbar has been clicked)
+		objRetype.objRTP.Activate()
+
+		strGroup := this.__Class
+		IfWinActive, ahk_group %strGroup%
 		{
-			ID:=IDList%A_Index%
-			WinGetTitle, ATitle, ahk_id %ID%
-			IfNotInString, ATitle, %A_ScriptFullPath%
-				WinClose, ahk_id %ID% ;kill
-
+			;; add stuff here
+			strInput := InputBox.Show("something here", 1)
+			MsgBox, , Test, %strInput%,
 		}
-		ExitApp
-
 	}
-
 }
+
+; McWrap: 2993249
