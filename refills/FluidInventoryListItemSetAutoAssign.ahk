@@ -39,8 +39,8 @@ objRetype.refill( new FluidInventoryListItemSetAutoAssign() )
 class FluidInventoryListItemSetAutoAssign extends Fluid {
 
 	strHotkey		:= "^!Numpad4"
-	strMenuPath		:= "/Admin/"
-	strMenuText		:= "AutoAssign Inventory"
+	strMenuPath		:= "/Admin/Inventory"
+	strMenuText		:= "AutoAssign Inventory Toggle"
 	intMenuIcon		:= 132
 
 	; intTimer := 100
@@ -51,11 +51,6 @@ class FluidInventoryListItemSetAutoAssign extends Fluid {
 		global objRetype
 		base.__New()
 
-		; strGroup 	:= this.id
-		; strRTP		:= % objRetype.objRTP.classNN()
-		; GroupAdd, %strGroup%, Add ahk_class %strRTP%, Inventory Pool Location
-		; GroupAdd, %strGroup%, Update ahk_class %strRTP%, Inventory Pool Location
-		; Create window group for places we want this hotkey active
 		strGroup	:= this.__Class
 		strRTP		:= % objRetype.objRTP.classNN()
 		GroupAdd, %strGroup%, Add ahk_class %strRTP%, Inventory Pool Location
@@ -68,12 +63,6 @@ class FluidInventoryListItemSetAutoAssign extends Fluid {
 
 		; Activate RTP (after toolbar has been clicked)
 		objRetype.objRTP.Activate()
-
-		; Create window group for places we want this hotkey active
-		; strGroup	:= this.__Class
-		; strRTP		:= % objRetype.objRTP.classNN()
-		; GroupAdd, %strGroup%, Add ahk_class %strRTP%, Inventory Pool Location
-		; GroupAdd, %strGroup%, Update ahk_class %strRTP%, Inventory Pool Location
 
 		; Product window is active
 		strGroup := this.__Class
@@ -95,7 +84,7 @@ class FluidInventoryListItemSetAutoAssign extends Fluid {
 				}
 
 				; Prompt for delete count
-				intIterate := InputBox.Show( "Delete how many items?`n`nEnter ALL to delete all remaining entries`nEnter DOWN to delete everything beneath selected row", 1 )
+				intIterate := InputBox.Show( "Update how many Rows?`n`nEnter ALL to Update all remaining entries`nEnter DOWN to Update everything beneath selected row", 1 )
 				; Allows entry of ALL to delete all remining listview items
 				if ( "ALL" = intIterate ) {
 					; Get number of list items
@@ -119,7 +108,7 @@ class FluidInventoryListItemSetAutoAssign extends Fluid {
 				}
 				; Confirmation message for massive delete requests
 				if ( 10 < intIterate ) {
-					MsgBox.YesNo( "You've asked to delete [" . intIterate . "] entries which seems like a lot. Continue?" )
+					MsgBox.YesNo( "You've asked to update [" . intIterate . "] entries which seems like a lot. Continue?" )
 					IfMsgBox, No
 					{
 						ControlFocus, %strControlFocus%, ahk_id %idWin%
@@ -131,7 +120,9 @@ class FluidInventoryListItemSetAutoAssign extends Fluid {
 					; Set focus to the listview again before we proceed
 					; ControlFocus, %strControlFocus%, ahk_id %idWin%
 
-					Send {Tab 2} Space
+					Send {Tab 2}
+					SendEvent, {Space}
+					; Space ;; heads up using {Space} causes errors!  who'd a thought
 
 					;; Wait for the inventory window to open
 					strWinInvAdd	= Update Inventory Pool Location
@@ -163,7 +154,9 @@ class FluidInventoryListItemSetAutoAssign extends Fluid {
 					; 	; MsgBox, , Control, %valCheckBox%,
 					; }
 
-					Send {Tab 1} Space
+					Send {Tab 1}
+					;  Space
+					SendEvent, {Space}
 
 					Sleep 50
 					ControlFocus, %strControlFocus%, ahk_id %idWin%
@@ -174,6 +167,8 @@ class FluidInventoryListItemSetAutoAssign extends Fluid {
 					Sleep 50
 
 				}
+
+				MsgBox.info("Inventory has been updated - please check before saving.")
 			}
 
 		}
